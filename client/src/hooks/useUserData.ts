@@ -9,21 +9,26 @@ interface User {
 }
 
 export default function useUserData() {
-  const [loading, setLoading] = useState(true);
+  const [userDataLoading, setLoading] = useState(true);
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/v1/user/details`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setUser(res.data);
-        setLoading(false);
-      });
+    try {
+      axios
+        .get(`${BACKEND_URL}/api/v1/user/details`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          setUser(res.data);
+          setLoading(false);
+        });
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
+    }
   }, []);
 
-  return { loading, user };
+  return { userDataLoading, user };
 }

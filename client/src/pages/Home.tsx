@@ -1,10 +1,17 @@
 import logo from '../assets/logo.png';
 import Banner from '../components/Banner';
+import Loader from '../components/Loader';
+import useBannerData from '../hooks/useBannerData';
 
 export default function Home() {
+    const { bannerDataLoading, banner } = useBannerData();
+
+    if (bannerDataLoading) {
+        return <Loader />;
+    }
     return (
         <div>
-            <Banner/>
+            {banner && banner.visible && <Banner />}
             <div className="flex justify-center flex-col items-center mt-10">
                 <div>
                     <img className="h-96" src={logo} alt="Logo" />

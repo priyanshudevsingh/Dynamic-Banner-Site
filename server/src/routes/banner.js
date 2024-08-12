@@ -35,6 +35,7 @@ bannerRouter.put("/update", userMiddleware, async (req, res) => {
         description: body.description,
         url: body.url,
         timer: body.timer,
+        visible: body.visible,
       },
     });
 

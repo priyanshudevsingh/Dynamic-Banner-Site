@@ -6,8 +6,10 @@ import { useState } from "react";
 
 export default function Appbar() {
     const navigate = useNavigate();
-    const { loading, user } = useUserData();
+    const { userDataLoading, user } = useUserData();
     const [hover, setHover] = useState(false);
+
+    console.log(userDataLoading);
 
     return (
         <div className="flex justify-between items-center py-1 pl-2 shadow-2xl">
@@ -16,24 +18,30 @@ export default function Appbar() {
             </Link>
 
             <div className="items-center flex">
+                <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer font-bold" onClick={() => { navigate("/") }}>
+                    Home
+                </div>
+
                 {user ? (
-                    <div className="flex justify-center text-slate-700 text-xl ml-20 mr-5 cursor-pointer" onClick={() => { localStorage.removeItem("token"); window.location.href = "/" }}>
-                        Logout
-                    </div>
+                    <>
+                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer font-bold" onClick={() => { localStorage.removeItem("token"); window.location.href = "/" }}>
+                            Logout
+                        </div>
+
+                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer font-bold" onClick={() => { navigate("/dashboard") }}>
+                            Dashboard
+                        </div></>
                 ) : (
                     <>
-                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer" onClick={() => { navigate("/signin") }}>
+                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer font-bold" onClick={() => { navigate("/signin") }}>
                             Signin
                         </div>
-                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer" onClick={() => { navigate("/signup") }}>
+
+                        <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer font-bold" onClick={() => { navigate("/signup") }}>
                             Signup
                         </div>
                     </>
                 )}
-
-                <div className="flex justify-center text-slate-700 text-xl mr-5 cursor-pointer" onClick={() => { navigate("/dashboard") }}>
-                    Dashboard
-                </div>
 
                 {user && (
                     <>

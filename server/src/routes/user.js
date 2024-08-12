@@ -1,7 +1,10 @@
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const { PrismaClient } = require("@prisma/client");
-const { signupInput, signinInput } = require("@priyanshudevsingh/medium-common");
+const {
+  signupInput,
+  signinInput,
+} = require("@priyanshudevsingh/medium-common");
 const userMiddleware = require("../middleware/user");
 
 const userRouter = Router();
